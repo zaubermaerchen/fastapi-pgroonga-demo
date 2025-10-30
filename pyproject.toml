@@ -16,6 +16,7 @@ dev = [
     "pyright>=1.1.407",
     "pytest>=8.4.2",
     "pytest-cov>=7.0.0",
+    "pytest-env>=1.1.5",
     "ruff>=0.14.2",
     "trio>=0.31.0",
 ]
@@ -50,3 +51,6 @@ ignore = [
 [tool.ruff.lint.pyupgrade]
 # Preserve types, even if a file imports `from __future__ import annotations`.
 keep-runtime-typing = true
+
+[tool.pytest_env]
+ENV = "test"
