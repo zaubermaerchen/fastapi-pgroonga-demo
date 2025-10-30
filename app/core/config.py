@@ -7,6 +7,7 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     ENV: str = os.getenv("ENV", "production")
     DEBUG: bool = False
+    DATABASE_URL: str = ""
 
     model_config = {
         "env_file": [".env", f".env.{ENV}", ".env.local", f".env.{ENV}.local"]
