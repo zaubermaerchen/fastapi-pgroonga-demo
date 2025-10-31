@@ -40,4 +40,9 @@ services:
       POSTGRES_DB: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_USER: postgres
+      TZ: Asia/Tokyo
+    volumes:
+      - type: bind
+        source: ./sql
+        target: /docker-entrypoint-initdb.d
 
