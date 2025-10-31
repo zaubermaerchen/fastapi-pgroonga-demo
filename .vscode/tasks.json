@@ -1,0 +1,59 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "DBマイグレーション",
+            "type": "shell",
+            "command": "uv",
+            "args": ["run", "alembic", "upgrade", "${input:revision}"],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent",
+                "close": true,
+                "panel": "shared",
+                "revealProblems": "onProblem"
+            }
+        },
+        {
+            "label": "DBロールバック",
+            "type": "shell",
+            "command": "uv",
+            "args": ["run", "alembic", "downgrade", "${input:revision}"],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent",
+                "close": true,
+                "panel": "shared",
+                "revealProblems": "onProblem"
+            }
+        },
+        {
+            "label": "DBマイグレーションファイル作成",
+            "type": "shell",
+            "command": "uv",
+            "args": ["run", "alembic", "revision", "--autogenerate", "-m", "${input:message}"],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent",
+                "close": true,
+                "panel": "shared",
+                "revealProblems": "onProblem"
+            }
+        }
+    ],
+    "inputs": [
+        {
+            "id": "message",
+            "type": "promptString",
+            "description": "メッセージ"
+        },
+        {
+            "id": "revision",
+            "type": "promptString",
+            "description": "リビジョン",
+            "default": "head"
+        }
+    ]
+}
