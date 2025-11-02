@@ -8,5 +8,5 @@ def test_get_settings():
     assert settings.DEBUG is True
     assert (
         settings.DATABASE_URL
-        == "postgresql+asyncpg://postgres:password@db:5432/postgres"
+        == "postgresql+asyncpg://postgres:password@db:5432/postgres_test"
     )
