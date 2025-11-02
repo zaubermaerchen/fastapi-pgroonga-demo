@@ -2,9 +2,9 @@ from dishka import make_async_container
 from dishka.integrations.fastapi import FastapiProvider, setup_dishka
 from fastapi import FastAPI
 
-from app.api.router import router
 from app.core.config import get_settings
 from app.core.container.provider import make_providers
+from app.core.router import router
 
 settings = get_settings()
 
