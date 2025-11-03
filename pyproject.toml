@@ -55,5 +55,12 @@ ignore = [
 # Preserve types, even if a file imports `from __future__ import annotations`.
 keep-runtime-typing = true
 
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if __name__ == .__main__.:",
+    "@(abc\\.)?abstractmethod",
+]
+
 [tool.pytest_env]
 ENV = "test"

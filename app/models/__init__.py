@@ -3,7 +3,7 @@ from pathlib import Path
 modules = []
 for p in Path(__file__).parent.iterdir():
     if not p.is_file() or p.suffix != ".py":
-        continue
+        continue  # pragma: no cover
 
     if p.name in {"__init__.py", "base.py"}:
         continue
