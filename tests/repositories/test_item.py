@@ -31,20 +31,28 @@ async def test_find(item_repository: ItemRepositoryInterface):
 
 @pytest.mark.asyncio
 async def test_search(item_repository: ItemRepositoryInterface):
-    items = await item_repository.search("オートライブ")
+    items, count = await item_repository.search("オートライブ")
     assert len(items) == 1
+    assert count == 1
     assert items[0].id == 1
     assert items[0].name == "オートライブPASS"
     assert items[0].description == "オートライブを行うことができるアイテム"
 
-    items = await item_repository.search("レッスンチケット")
+    items, count = await item_repository.search("レッスンチケット")
+    assert count == 4
     assert len(items) == 4
     assert [item.id for item in items] == [2, 3, 4, 5]
 
-    items = await item_repository.search("レッスンチケット", 2, 1)
+    items, count = await item_repository.search("レッスンチケット", 2, 1)
+    assert count == 4
     assert len(items) == 2
     assert [item.id for item in items] == [3, 4]
 
-    items = await item_repository.search("レッスンチケット OR スパークドリンク")
+    items, count = await item_repository.search("レッスンチケット OR スパークドリンク")
+    assert count == 8
     assert len(items) == 8
     assert [item.id for item in items] == [2, 3, 4, 5, 6, 7, 8, 9]
+
+    items, count = await item_repository.search("存在しないアイテム")
+    assert count == 0
+    assert len(items) == 0
