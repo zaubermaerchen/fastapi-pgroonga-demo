@@ -13,6 +13,14 @@ class ItemRepositoryInterface(ABC):
         pass
 
     @abstractmethod
+    async def create(self, name: str, description: str, price: int) -> Item:
+        pass
+
+    @abstractmethod
+    async def delete(self, item_id: int) -> None:
+        pass
+
+    @abstractmethod
     async def search(
         self, query: str, limit: int = 10, offset: int = 0
     ) -> tuple[list[Item], int]:
@@ -24,6 +32,19 @@ class ItemRepository(BaseRepository, ItemRepositoryInterface):
         statement = select(Item).where(Item.id == item_id)
         result = await self.session.execute(statement)
         return result.scalar()
+
+    async def create(self, name: str, description: str, price: int) -> Item:
+        item = Item(name=name, description=description, price=price)
+        self.session.add(item)
+        await self.session.commit()
+        await self.session.refresh(item)
+        return item
+
+    async def delete(self, item_id: int) -> None:
+        item = await self.find(item_id)
+        if item:
+            await self.session.delete(item)
+            await self.session.commit()
 
     async def search(
         self, query: str, limit: int = 10, offset: int = 0

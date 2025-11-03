@@ -12,6 +12,12 @@ from sqlalchemy.pool import NullPool
 from app.core.config import Settings
 
 
+class AsyncTestingSession(AsyncSession):
+    async def commit(self) -> None:
+        await self.flush()
+        self.expire_all()
+
+
 class DatabaseProvider(Provider):
     def __init__(self, settings: Settings):
         super().__init__()
@@ -35,7 +41,7 @@ class DatabaseProvider(Provider):
     def session_pool(self, engine: AsyncEngine) -> async_sessionmaker[AsyncSession]:
         return async_sessionmaker(
             bind=engine,
-            class_=AsyncSession,
+            class_=AsyncTestingSession if self.settings.ENV == "test" else AsyncSession,
             autoflush=False,
             autocommit=False,
         )

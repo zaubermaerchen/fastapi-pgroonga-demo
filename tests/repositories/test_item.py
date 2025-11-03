@@ -30,6 +30,26 @@ async def test_find(item_repository: ItemRepositoryInterface):
 
 
 @pytest.mark.asyncio
+async def test_create(item_repository: ItemRepositoryInterface):
+    item = await item_repository.create("新アイテム", "新しいアイテムの説明", 500)
+    assert item.id == 10
+    assert item.name == "新アイテム"
+    assert item.description == "新しいアイテムの説明"
+    assert item.price == 500
+
+
+@pytest.mark.asyncio
+async def test_delete(item_repository: ItemRepositoryInterface):
+    await item_repository.delete(1)
+    item = await item_repository.find(1)
+    assert item is None
+
+    await item_repository.delete(99)
+    item = await item_repository.find(99)
+    assert item is None
+
+
+@pytest.mark.asyncio
 async def test_search(item_repository: ItemRepositoryInterface):
     items, count = await item_repository.search("オートライブ")
     assert len(items) == 1
