@@ -42,46 +42,55 @@ async def db_setup(container: AsyncContainer):
                         id=1,
                         name="オートライブPASS",
                         description="オートライブを行うことができるアイテム",
+                        price=100,
                     ),
                     Item(
                         id=2,
                         name="レッスンチケット SSR",
                         description="カードのレッスンで使用するアイテム",
+                        price=10000,
                     ),
                     Item(
                         id=3,
                         name="レッスンチケット SR",
                         description="カードのレッスンで使用するアイテム",
+                        price=5000,
                     ),
                     Item(
                         id=4,
                         name="レッスンチケット R",
                         description="カードのレッスンで使用するアイテム",
+                        price=1000,
                     ),
                     Item(
                         id=5,
                         name="レッスンチケット N",
                         description="カードのレッスンで使用するアイテム",
+                        price=500,
                     ),
                     Item(
                         id=6,
                         name="スパークドリンクMAX",
                         description="元気を、最大元気と同じ値だけ回復する",
+                        price=200,
                     ),
                     Item(
                         id=7,
                         name="スパークドリンク10",
                         description="元気を10回復できる",
+                        price=10,
                     ),
                     Item(
                         id=8,
                         name="スパークドリンク20",
                         description="元気を20回復できる",
+                        price=50,
                     ),
                     Item(
                         id=9,
                         name="スパークドリンク30",
                         description="元気を30回復できる",
+                        price=100,
                     ),
                 ]
             )

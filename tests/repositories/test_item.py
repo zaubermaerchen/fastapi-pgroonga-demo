@@ -17,11 +17,13 @@ async def test_find(item_repository: ItemRepositoryInterface):
     assert item is not None
     assert item.name == "オートライブPASS"
     assert item.description == "オートライブを行うことができるアイテム"
+    assert item.price == 100
 
     item = await item_repository.find(2)
     assert item is not None
     assert item.name == "レッスンチケット SSR"
     assert item.description == "カードのレッスンで使用するアイテム"
+    assert item.price == 10000
 
     item = await item_repository.find(99)
     assert item is None
