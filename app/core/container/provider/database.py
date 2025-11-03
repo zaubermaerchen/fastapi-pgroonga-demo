@@ -18,14 +18,18 @@ class DatabaseProvider(Provider):
         self.settings = settings
 
     @provide(scope=Scope.APP)
-    def engine(self) -> AsyncEngine:
-        return create_async_engine(
+    async def engine(self) -> AsyncGenerator[AsyncEngine]:
+        engine = create_async_engine(
             self.settings.DATABASE_URL,
             echo=self.settings.DEBUG,
             future=True,
             pool_pre_ping=True,
             poolclass=NullPool,
         )
+        try:
+            yield engine
+        finally:
+            await engine.dispose(True)
 
     @provide(scope=Scope.APP)
     def session_pool(self, engine: AsyncEngine) -> async_sessionmaker[AsyncSession]:
