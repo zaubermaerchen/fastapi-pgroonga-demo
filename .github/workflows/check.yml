@@ -11,5 +11,7 @@ jobs:
         uses: actions/checkout@v5
       - name: Build
         run: docker compose up -d --build
+      - name: Lint
+        run: docker compose exec --no-TTY app uv run ruff check
       - name: Test
         run: docker compose exec --no-TTY app uv run pytest
