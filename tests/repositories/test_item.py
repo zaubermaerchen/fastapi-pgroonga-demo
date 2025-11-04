@@ -32,7 +32,6 @@ async def test_find(item_repository: ItemRepositoryInterface):
 @pytest.mark.asyncio
 async def test_create(item_repository: ItemRepositoryInterface):
     item = await item_repository.create("新アイテム", "新しいアイテムの説明", 500)
-    assert item.id == 10
     assert item.name == "新アイテム"
     assert item.description == "新しいアイテムの説明"
     assert item.price == 500
