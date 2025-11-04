@@ -17,7 +17,7 @@ class ItemRepositoryInterface(ABC):
         pass
 
     @abstractmethod
-    async def delete(self, item_id: int) -> None:
+    async def delete(self, item_id: int) -> bool:
         pass
 
     @abstractmethod
@@ -40,11 +40,14 @@ class ItemRepository(BaseRepository, ItemRepositoryInterface):
         await self.session.refresh(item)
         return item
 
-    async def delete(self, item_id: int) -> None:
+    async def delete(self, item_id: int) -> bool:
         item = await self.find(item_id)
-        if item:
-            await self.session.delete(item)
-            await self.session.commit()
+        if item is None:
+            return False
+
+        await self.session.delete(item)
+        await self.session.commit()
+        return True
 
     async def search(
         self, query: str, limit: int = 10, offset: int = 0

@@ -40,13 +40,13 @@ async def test_create(item_repository: ItemRepositoryInterface):
 
 @pytest.mark.asyncio
 async def test_delete(item_repository: ItemRepositoryInterface):
-    await item_repository.delete(1)
+    result = await item_repository.delete(1)
+    assert result is True
     item = await item_repository.find(1)
     assert item is None
 
-    await item_repository.delete(99)
-    item = await item_repository.find(99)
-    assert item is None
+    result = await item_repository.delete(99)
+    assert result is False
 
 
 @pytest.mark.asyncio
