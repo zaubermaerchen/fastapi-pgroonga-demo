@@ -12,4 +12,4 @@ jobs:
       - name: Build
         run: docker compose up -d --build
       - name: Test
-        run: docker-compose exec --no-TTY app uv run pytest
+        run: docker compose exec --no-TTY app uv run pytest
