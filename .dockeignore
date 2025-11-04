@@ -1,0 +1,7 @@
+.coverage
+.devcontainer/
+.git/
+.guthub/
+.pytest_cache/
+.vscode/
+docker/
