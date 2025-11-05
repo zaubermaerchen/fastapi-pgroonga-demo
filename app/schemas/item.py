@@ -22,3 +22,8 @@ class CreateItemRequest(BaseModel):
 
 class CreateItemResponse(Item):
     pass
+
+
+class SearchItemsResponse(BaseModel):
+    results: list[Item] = Field(title="検索結果")
+    count: int = Field(title="総件数")
